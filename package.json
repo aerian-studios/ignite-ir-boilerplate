@@ -31,6 +31,9 @@
   },
   "standard": {
     "parser": "babel-eslint",
+    "plugins": [
+      "flowtype"
+    ],
     "globals": [
       "__DEV__",
       "jasmine",
@@ -38,14 +41,29 @@
       "afterAll",
       "test",
       "expect",
-      "describe"
+      "describe",
+      "Iterable"
+    ],
+    "ignore": [
+      "/flow-typed/"
     ]
   },
   "devDependencies": {
+    "@storybook/react-native": "^3.2.14",
+    "apisauce": "^0.14.1",
     "babel-eslint": "^7.1.1",
+    "enzyme": "^3.1.0",
+    "eslint-plugin-flowtype": "^2.39.1",
+    "flow-bin": "^0.57.3",
     "fs-jetpack": "^1.0.0",
     "jest": "^20.0.4",
     "np": "^2.15.0",
+    "react-navigation": "^1.0.0-beta.16",
+    "reactotron-react-native": "^1.12.3",
+    "reactotron-redux": "^1.12.2",
+    "reactotron-redux-saga": "^1.12.2",
+    "reduxsauce": "^0.7.0",
+    "seamless-immutable": "^7.1.2",
     "sinon": "^2.3.1",
     "standard": "^10.0.2",
     "tempy": "^0.1.0"

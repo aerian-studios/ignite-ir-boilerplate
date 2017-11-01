@@ -1,3 +1,4 @@
+// @flow
 export default (kelvin: number) => {
   const celsius = kelvin - 273.15
   const fahrenheit = (celsius * 1.8000) + 32

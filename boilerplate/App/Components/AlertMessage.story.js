@@ -1,5 +1,6 @@
-import React from 'react'
+// @flow
 import { storiesOf } from '@storybook/react-native'
+import * as React from 'react'
 
 import AlertMessage from './AlertMessage'
 

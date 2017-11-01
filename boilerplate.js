@@ -70,6 +70,10 @@ async function install (context) {
     overwrite: true,
     matching: '!*.ejs'
   })
+  filesystem.copy(`${__dirname}/flow-typed`, `${process.cwd()}/flow-typed`, {
+    overwrite: true,
+    matching: '!*.ejs'
+  })
   spinner.stop()
 
   // --max, --min, interactive

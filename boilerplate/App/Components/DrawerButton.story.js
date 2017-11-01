@@ -1,6 +1,7 @@
-import React from 'react'
-import { View } from 'react-native'
+// @flow
 import { storiesOf } from '@storybook/react-native'
+import * as React from 'react'
+import { View } from 'react-native'
 
 import DrawerButton from './DrawerButton'
 
@@ -9,7 +10,7 @@ storiesOf('DrawerButton')
     <View style={{ backgroundColor: 'black' }}>
       <DrawerButton
         text='Drawer Button'
-        onPress={() => { }}
+        onPress={() => window.alert('Hi')}
       />
     </View>
   ))

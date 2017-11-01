@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { TouchableOpacity, Text } from 'react-native'
-import styles from './Styles/RoundedButtonStyles'
+import * as React from 'react'
+import { Text, TouchableOpacity } from 'react-native'
 import ExamplesRegistry from '../Services/ExamplesRegistry'
+import styles from './Styles/RoundedButtonStyles'
 
 // Note that this file (App/Components/RoundedButton) needs to be
 // imported in your app somewhere, otherwise your component won't be
@@ -11,30 +10,26 @@ import ExamplesRegistry from '../Services/ExamplesRegistry'
 // Ignore in coverage report
 /* istanbul ignore next */
 ExamplesRegistry.addComponentExample('Rounded Button', () =>
-  <RoundedButton
-    text='real buttons have curves'
-    onPress={() => window.alert('Rounded Button Pressed!')}
-  />
+  (
+    <RoundedButton
+      text='real buttons have curves'
+      onPress={() => window.alert('Rounded Button Pressed!')}
+    />)
 )
 
-export default class RoundedButton extends Component {
-  static propTypes = {
-    onPress: PropTypes.func,
-    text: PropTypes.string,
-    children: PropTypes.string,
-    navigator: PropTypes.object
-  }
-
-  getText () {
-    const buttonText = this.props.text || this.props.children || ''
-    return buttonText.toUpperCase()
-  }
-
-  render () {
-    return (
-      <TouchableOpacity style={styles.button} onPress={this.props.onPress}>
-        <Text style={styles.buttonText}>{this.getText()}</Text>
-      </TouchableOpacity>
-    )
-  }
+interface Props {
+  onPress?: () => any;
+  text?: string;
+  children?: string;
 }
+
+const RoundedButton: React.StatelessFunctionalComponent<Props> = ({ text, children, onPress = () => { } }: Props) => {
+  const buttonText = (text || children || '').toUpperCase()
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{buttonText}</Text>
+    </TouchableOpacity>
+  )
+}
+
+export default RoundedButton

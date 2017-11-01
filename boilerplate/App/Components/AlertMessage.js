@@ -1,33 +1,21 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
+// @flow
+import * as React from 'react'
+import { Text, View } from 'react-native'
 import styles from './Styles/AlertMessageStyles'
 
-export default class AlertMessage extends Component {
-  static defaultProps = { show: true }
-
-  static propTypes = {
-    title: PropTypes.string,
-    icon: PropTypes.string,
-    style: PropTypes.object,
-    show: PropTypes.bool
-  }
-
-  render () {
-    let messageComponent = null
-    if (this.props.show) {
-      const { title } = this.props
-      return (
-        <View
-          style={[styles.container, this.props.style]}
-        >
-          <View style={styles.contentContainer}>
-            <Text allowFontScaling={false} style={styles.message}>{title && title.toUpperCase()}</Text>
-          </View>
-        </View>
-      )
-    }
-
-    return messageComponent
-  }
+type Props = {
+  icon?: string;
+  show?: boolean;
+  style?: any;
+  title?: string;
 }
+
+const AlertMessage: React.StatelessFunctionalComponent<Props> = ({ icon, show = true, style, title }: Props) => show ? (
+  <View style={[styles.container, style]}>
+    <View style={styles.contentContainer}>
+      <Text allowFontScaling={false} style={styles.message}>{title && title.toUpperCase()}</Text>
+    </View>
+  </View>
+) : null
+
+export default AlertMessage

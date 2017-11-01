@@ -1,10 +1,12 @@
-import { createStore, applyMiddleware, compose } from 'redux'
+// @flow
+import { createStore, applyMiddleware, compose, Reducer } from 'redux'
 import Config from '../Config/DebugConfig'
-import createSagaMiddleware from 'redux-saga'
+import { SagaMonitor, default as createSagaMiddleware } from 'redux-saga'
 import ScreenTracking from './ScreenTrackingMiddleware'
+import Reactotron from 'reactotron-react-native'
 
 // creates the store
-export default (rootReducer, rootSaga) => {
+export default (rootReducer: Reducer<any, any>, rootSaga:Function) => {
   /* ------------- Redux Configuration ------------- */
 
   const middleware = []
@@ -15,8 +17,12 @@ export default (rootReducer, rootSaga) => {
 
   /* ------------- Saga Middleware ------------- */
 
-  const sagaMonitor = Config.useReactotron ? console.tron.createSagaMonitor() : null
-  const sagaMiddleware = createSagaMiddleware({ sagaMonitor })
+  let opts = {}
+  if (Config.useReactotron) {
+    const sagaMonitor:SagaMonitor = Reactotron.createSagaMonitor()
+    opts = { sagaMonitor }
+  }
+  const sagaMiddleware = createSagaMiddleware(opts)
   middleware.push(sagaMiddleware)
 
   /* ------------- Assemble Middleware ------------- */
@@ -24,7 +30,7 @@ export default (rootReducer, rootSaga) => {
   enhancers.push(applyMiddleware(...middleware))
 
   // if Reactotron is enabled (default for __DEV__), we'll create the store through Reactotron
-  const createAppropriateStore = Config.useReactotron ? console.tron.createStore : createStore
+  const createAppropriateStore = Config.useReactotron ? Reactotron.createStore : createStore
   const store = createAppropriateStore(rootReducer, compose(...enhancers))
 
   // kick off root saga

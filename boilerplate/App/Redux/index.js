@@ -1,16 +1,26 @@
+// @flow
 import { combineReducers } from 'redux'
+import root from '../Sagas'
 import configureStore from './CreateStore'
-import rootSaga from '../Sagas/'
+import {reducer as github} from './GithubRedux'
+import {reducer as nav} from './NavigationRedux'
+import {reducer as search} from './SearchRedux'
 
 /* ------------- Assemble The Reducers ------------- */
 export const reducers = combineReducers({
-  nav: require('./NavigationRedux').reducer,
-  github: require('./GithubRedux').reducer,
-  search: require('./SearchRedux').reducer
+  nav,
+  github,
+  search
 })
 
+declare var module: {
+  hot?: {
+    accept(callback: () => void): void,
+  },
+};
+
 export default () => {
-  let { store, sagasManager, sagaMiddleware } = configureStore(reducers, rootSaga)
+  let { store, sagasManager, sagaMiddleware } = configureStore(reducers, root)
 
   if (module.hot) {
     module.hot.accept(() => {
@@ -19,7 +29,7 @@ export default () => {
 
       const newYieldedSagas = require('../Sagas').default
       sagasManager.cancel()
-      sagasManager.done.then(() => {
+      sagasManager.done && sagasManager.done.then(() => {
         sagasManager = sagaMiddleware.run(newYieldedSagas)
       })
     })

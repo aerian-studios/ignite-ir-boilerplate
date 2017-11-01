@@ -1,17 +1,22 @@
-import React, { Component } from 'react'
-import { View, StatusBar } from 'react-native'
-import ReduxNavigation from '../Navigation/ReduxNavigation'
+// @flow
+import * as React from 'react'
+import { StatusBar, View } from 'react-native'
 import { connect } from 'react-redux'
+import ReduxNavigation from '../Navigation/ReduxNavigation'
 import StartupActions from '../Redux/StartupRedux'
 
 // Styles
 import styles from './Styles/RootContainerStyles'
 
-class RootContainer extends Component {
-  componentDidMount () {
-    this.props.startup()
-  }
+interface Props {
+  startup: () => void;
+}
 
+interface State {
+
+}
+
+export class RootContainer extends React.Component<Props, State> {
   render () {
     return (
       <View style={styles.applicationView}>
@@ -22,8 +27,7 @@ class RootContainer extends Component {
   }
 }
 
-// wraps dispatch to create nicer functions to call within our component
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: any): Props => ({
   startup: () => dispatch(StartupActions.startup())
 })
 

@@ -1,26 +1,35 @@
+// @flow
 import { put, select } from 'redux-saga/effects'
-import GithubActions from '../Redux/GithubRedux'
+import { GithubActions } from '../Redux/GithubRedux'
+import type { ImmutableGithubState, GithubAction } from '../Redux/GithubRedux'
 import { is } from 'ramda'
+import Reactotron from 'reactotron-react-native'
+
+export type State = {
+  github: ImmutableGithubState
+}
+
+export type Action = GithubAction
 
 // exported to make available for tests
-export const selectAvatar = (state) => state.github.avatar
+export const selectAvatar = (state:State) => state.github.avatar
 
 // process STARTUP actions
-export function * startup (action) {
-  if (__DEV__ && console.tron) {
+export function * startup (action:Action):Iterable<any> {
+  if (__DEV__) {
     // straight-up string logging
-    console.tron.log('Hello, I\'m an example of how to log via Reactotron.')
+    Reactotron.log('Hello, I\'m an example of how to log via Reactotron.')
 
     // logging an object for better clarity
-    console.tron.log({
+    Reactotron.log({
       message: 'pass objects for better logging',
       someGeneratorFunction: selectAvatar
     })
 
     // fully customized!
-    const subObject = { a: 1, b: [1, 2, 3], c: true }
+    let subObject = { a: 1, b: [1, 2, 3], c: true, circularDependency: (undefined:any) }
     subObject.circularDependency = subObject // osnap!
-    console.tron.display({
+    Reactotron.display({
       name: '🔥 IGNITE 🔥',
       preview: 'You should totally expand this',
       value: {

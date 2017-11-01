@@ -1,4 +1,6 @@
+// @flow
 import 'react-native'
+import { test } from 'jest'
 import React from 'react'
 import AlertMessage from '../../App/Components/AlertMessage'
 import renderer from 'react-test-renderer'

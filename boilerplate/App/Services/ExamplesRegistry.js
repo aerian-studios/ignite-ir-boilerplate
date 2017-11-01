@@ -1,14 +1,15 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+// @flow
 import R from 'ramda'
-import { ApplicationStyles } from '../Themes'
+import * as React from 'react'
+import { Text, View } from 'react-native'
 import DebugConfig from '../Config/DebugConfig'
+import { ApplicationStyles } from '../Themes'
 let globalComponentExamplesRegistry = []
 let globalPluginExamplesRegistry = []
 
-export const addComponentExample = (title, usage = () => {}) => { if (DebugConfig.includeExamples) globalComponentExamplesRegistry.push({title, usage}) } // eslint-disable-line
+export const addComponentExample = (title:string, usage: () => any = () => {}) => { if (DebugConfig.includeExamples) globalComponentExamplesRegistry.push({title, usage}); }; // eslint-disable-line
 
-export const addPluginExample = (title, usage = () => {}) => { if (DebugConfig.includeExamples) globalPluginExamplesRegistry.push({title, usage}) } // eslint-disable-line
+export const addPluginExample = (title:string, usage: () => any = () => {}) => { if (DebugConfig.includeExamples) globalPluginExamplesRegistry.push({title, usage}); }; // eslint-disable-line
 
 const renderComponentExample = (example) => {
   return (

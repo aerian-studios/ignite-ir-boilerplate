@@ -1,3 +1,4 @@
+// @flow
 import 'react-native'
 import React from 'react'
 import DrawerButton from '../../App/Components/DrawerButton'

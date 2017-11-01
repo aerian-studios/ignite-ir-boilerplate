@@ -8,16 +8,20 @@
 *  - You'll need to add this saga to sagas/index.js
 *  - This template uses the api declared in sagas/index.js, so
 *    you'll need to define a constant in that file.
+* @flow
 *************************************************************/
 
 import { call, put } from 'redux-saga/effects'
 import <%= props.name %>Actions from '../Redux/<%= props.name %>Redux'
+import type { <%= props.name %>Action, Immutable<%= props.name %>State } from '../Redux/<%= props.name %>Redux'
+import type { <%= props.name %>Api, <%= props.name %>Response } from '../Services/Api'
 
-export function * get<%= props.name %> (api, action) {
+
+export function * get<%= props.name %> (api, action:<%= props.name %>Action):Iterable<Immutable<%= props.name %>State> {
   const { data } = action
   // make the call to the api
-  const response = yield call(api.get<%= camelCase(props.name) %>, data)
-
+  const response: ApiResponse<%= props.name %>Response > = yield call(api.get<%= props.name %>Response , data || '')
+    
   // success?
   if (response.ok) {
     // You might need to change the response here - do this with a 'transform',
